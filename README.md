@@ -35,7 +35,11 @@ Gampang banget, gak pakai ribet:
    ```text
    http://127.0.0.1:8080
    ```
-4. Ketik atau paste teks/password kamu di kotak input, dan nikmati kemudahannya! ✨
+
+   atau coba langsung di
+
+   https://alifadwitiyap.github.io/unword/
+5. Ketik atau paste teks/password kamu di kotak input, dan nikmati kemudahannya! ✨
 
 ---
 
