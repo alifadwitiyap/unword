@@ -1,0 +1,7 @@
+# .plan/ and temporary build files
+.plan/
+Prototype/
+assets/css/127.0.0.1/
+assets/fonts/127.0.0.1/
+*.zip
+.DS_Store

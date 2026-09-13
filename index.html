@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unword — Character Case Analyzer</title>
+  <link rel="icon" href="assets/images/favicon-369a3b18da.png">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Header (yellow accent bar, Saweria brutalist) -->
+  <header class="site-header" role="banner">
+    <a class="brand" href="#" aria-label="Unword Home">
+      <span class="logo" aria-hidden="true">U</span>
+      <span>Unword</span>
+    </a>
+    <div class="actions">
+      <span class="build-badge">Built 4 life <span class="love-pixel" aria-label="love">🫶✨🚀</span></span>
+    </div>
+  </header>
+
+  <main class="container" id="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero-section">
+      <h1><span class="accent-bar" aria-hidden="true"></span>Unword</h1>
+      <p class="lead">Paste any text. Get an instant, detailed breakdown showing each character's case classification with upper/lower variants, live statistics, and CSV export.</p>
+    </section>
+
+    <!-- Summary (expandable: bar chart + donut) -->
+    <section class="card summary-card-wrap" aria-labelledby="summary-heading">
+      <div class="summary-header" tabindex="0" role="button" aria-expanded="true" aria-controls="summary-content" onclick="toggleSummary()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSummary();}">
+        <div class="summary-title-group">
+          <svg id="summary-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <h2 id="summary-heading" style="margin:0;font-size:20px;">Summary</h2>
+        </div>
+        <span class="summary-subtitle-desktop">Breakdown across UPPER, LOWER, DIGIT, and SPECIAL.</span>
+      </div>
+      <div id="summary-content" class="chart-grid">
+        <!-- Bar chart card -->
+        <div class="sub-card chart-card">
+          <div class="chart-title">Count by Type</div>
+          <div id="bar-chart" class="chart-body" aria-label="Bar chart of character categories"></div>
+        </div>
+        <!-- Donut chart card -->
+        <div class="sub-card chart-card">
+          <div class="chart-title">Share of Total</div>
+          <div class="donut-wrap">
+            <div class="donut-container">
+              <div class="donut" id="donut" data-count="0" role="img" aria-label="Donut chart showing proportion of character types"></div>
+            </div>
+            <div class="legend" id="donut-legend"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input -->
+    <section class="card" aria-labelledby="input-heading">
+      <h2 id="input-heading" class="sr-only">Input Section</h2>
+      <label for="input-text">Input text</label>
+      <textarea id="input-text" spellcheck="false" placeholder="Type or paste text here...">qwer ABC xyz 123</textarea>
+      <div id="input-stats" class="input-stats" aria-live="polite"></div>
+    </section>
+
+    <!-- Table + controls -->
+    <section class="card" aria-labelledby="table-heading">
+      <div class="toolbar">
+        <h2 id="table-heading" class="sr-only">Character Analysis Table</h2>
+        <div class="filter-wrap">
+          <button class="icon-btn filter-trigger" aria-label="Filter character types" aria-haspopup="true" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 3 22 3"></polygon>
+            </svg>
+            <span class="filter-label-text">Filter</span>
+          </button>
+          <div class="filter-dropdown" id="filter-dropdown" role="menu">
+            <button class="filter-pill active" data-filter="all" role="menuitem">All</button>
+            <button class="filter-pill" data-filter="LOWER" style="--pill-bg:#8bd3dd;" role="menuitem">LOWER</button>
+            <button class="filter-pill" data-filter="UPPER" style="--pill-bg:#fe98a3;" role="menuitem">UPPER</button>
+            <button class="filter-pill" data-filter="DIGIT" style="--pill-bg:#faae2b;" role="menuitem">DIGIT</button>
+            <button class="filter-pill" data-filter="SPECIAL" style="--pill-bg:#a683dd;" role="menuitem">SPECIAL</button>
+          </div>
+        </div>
+        <button class="primary-btn" id="download-csv">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download as CSV
+        </button>
+      </div>
+
+      <div class="table-wrap" tabindex="0" aria-label="Character breakdown table scrollable area">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Position</th>
+              <th scope="col">Character</th>
+              <th scope="col">Case Type</th>
+              <th scope="col">Upper Variant</th>
+              <th scope="col">Lower Variant</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Pagination -->
+    <nav class="pagination" id="pagination" aria-label="Table pagination">
+      <button class="page-btn" id="page-prev" onclick="changePage(-1)">← Prev</button>
+      <div class="page-info" id="page-info" aria-live="polite">Page 1 of 1</div>
+      <button class="page-btn" id="page-next" onclick="changePage(1)">Next →</button>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <span class="footer-brand">
+        <span>Built 4 life</span>
+        <span class="love-pixel" aria-label="love">🫶✨🚀</span>
+      </span>
+      <span class="footer-dot">·</span>
+      <span>Real-time character case classification</span>
+    </footer>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
