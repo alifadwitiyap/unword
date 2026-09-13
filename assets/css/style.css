@@ -231,7 +231,8 @@ textarea:focus {
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   display: flex;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 8px;
   font-size: 13px;
   font-weight: 600;
   color: var(--muted);
