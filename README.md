@@ -1,6 +1,6 @@
 # Unword 🔤✂️
 
-Aplikasi web mungil yang kubikin murni karena keresahan pribadi yang dapat password random gak bisa kebaca dari sistem. 
+Aplikasi web mungil yang kubikin murni karena keresahan pribadi yang dapat password random dari sistem gak bisa dibaca langsung. 
 
 ## Kenapa Bikin Ini? 🤔
 
