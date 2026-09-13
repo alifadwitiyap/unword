@@ -1,6 +1,6 @@
 # Unword 🔤✂️
 
-Aplikasi web mungil yang kubikin murni karena keresahan pribadi. 
+Aplikasi web mungil yang kubikin murni karena keresahan pribadi yang dapat password random gak bisa kebaca dari sistem. 
 
 ## Kenapa Bikin Ini? 🤔
 
@@ -19,7 +19,6 @@ Tinggal paste, langsungpecah, beres! 🚀
 - **Statistik & Grafik Interaktif**: Ada bar chart dan donut chart proporsi tipe karakter biar keliatan seimbang apa gak password/teks kamu. 📊
 - **Filter Cepat**: Mau ngecek khusus huruf kecil atau angka doang? Tinggal klik filter-nya. 🎯
 - **Export CSV**: Bisa di-download kalau butuh datanya buat diolah lagi. 💾
-- **Saweria Brutalist Aesthetic**: Desain retro-modern dengan border tebal dan shadow tegas yang nyaman di mata. 😎
 
 ---
 
